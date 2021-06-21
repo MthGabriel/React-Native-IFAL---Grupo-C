@@ -1,33 +1,36 @@
-import React, { Component } from 'react';
-import {StyleSheet,Text,View} from 'react-native';
-export default class App extends Component<{}> {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>IFAL</Text>
-        <Text style={styles.instructions}>Custom fonts in React-Native</Text>
-      </View>
-    );
-  }
-}
+import * as React from 'react';
+import { View, StyleSheet, Text } from 'react-native';
+import * as Localization from 'expo-localization';
+import i18n from 'i18n-js';
+
+i18n.translations = {
+  en: { welcome: 'Hello', name: 'IFAL' },
+  ja: { welcome: 'こんにちは' },
+  pt: { welcome: 'Olá' },
+  gr: { welcome: 'γεια'}
+};
+i18n.locale = Localization.locale;
+
+i18n.fallbacks = true;
+
+export default App => {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.text}>
+        {i18n.t('welcome')} {i18n.t('name')}
+      </Text>
+    </View>
+  );
+};
+
 const styles = StyleSheet.create({
   container: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: '#F5FCFF',
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flex: 1,
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-    fontFamily: 'Open SansExtraBold',
-    fontWeight:'800',
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-    fontFamily: 'Open SansB',
+  text: {
+    fontSize: 30,
   },
 });
